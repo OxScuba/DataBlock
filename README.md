@@ -1,3 +1,5 @@
+![Data Block](src/media/logo/DataBlock_logo.png)
+
 Data Block
 
 Bienvenue dans le projet Data Block, une application conçue pour les microcontrôleurs ESP32, en particulier le modèle Lilygo T-Display S3. Ce projet offre une interface conviviale pour afficher des informations en temps réel sur la blockchain Bitcoin, telles que la hauteur du bloc, les frais de transaction et bien plus encore.
