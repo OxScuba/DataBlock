@@ -236,43 +236,43 @@ void displayScreen3() {
     int xPosition = 143 + i * 56;
     if (i < dataSize) {
       tft.setTextSize(1);
-      tft.setCursor(xPosition, 84, 2);  // Modification ici
+      tft.setCursor(xPosition, 84, 2);  
       tft.setTextColor(TFT_BLUE);
       tft.print(blockHeightm[i]);
       tft.setTextColor(TFT_WHITE);
-      tft.setCursor(xPosition, 84, 1);  // Modification ici
+      tft.setCursor(xPosition, 84, 1);  
       tft.setTextSize(1);
-      tft.setCursor(xPosition + 9, 128);  // Modification ici
+      tft.setCursor(xPosition + 9, 128);  
       float sizeMB = size[i] / (1024.0 * 1024.0);
       tft.printf("%.1f", sizeMB);
-      tft.setCursor(xPosition + 10, 113);  // Modification ici
+      tft.setCursor(xPosition + 10, 113); 
       tft.print(avgFeeRate[i]);
-      tft.setCursor(xPosition + 10, 143);  // Modification ici
+      tft.setCursor(xPosition + 10, 143);  
       tft.print(txCount[i]);
-      tft.setCursor(173, 113);  // Modification ici
+      tft.setCursor(173, 113);  
       tft.print("s/vB");
-      tft.setCursor(230, 113);  // Modification ici
+      tft.setCursor(230, 113);  
       tft.print("s/vB");
-      tft.setCursor(287, 113);  // Modification ici
+      tft.setCursor(287, 113);  
       tft.print("s/vB");
-      tft.setCursor(183, 128);  // Modification ici
+      tft.setCursor(183, 128);  
       tft.print("mB");
-      tft.setCursor(240, 128);  // Modification ici
+      tft.setCursor(240, 128);  
       tft.print("mB");
-      tft.setCursor(297, 128);  // Modification ici
+      tft.setCursor(297, 128);  
       tft.print("mB");
-      tft.setCursor(183, 143);  // Modification ici
+      tft.setCursor(183, 143);  
       tft.print("tx");
-      tft.setCursor(240, 143);  // Modification ici
+      tft.setCursor(240, 143);  
       tft.print("tx");
-      tft.setCursor(297, 143);  // Modification ici
+      tft.setCursor(297, 143);  
       tft.print("tx");
     } else {
-      tft.setCursor(xPosition, 83);  // Modification ici
+      tft.setCursor(xPosition, 83);  
       tft.print("N/A");
-      tft.setCursor(xPosition + 9, 128);  // Modification ici
+      tft.setCursor(xPosition + 9, 128);  
       tft.print("N/A");
-      tft.setCursor(xPosition + 10, 113);  // Modification ici
+      tft.setCursor(xPosition + 10, 113);  
       tft.print("N/A");
       tft.setCursor(xPosition + 10, 143);  
       tft.print("N/A");
