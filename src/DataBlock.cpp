@@ -16,6 +16,8 @@
 #include "media/160x160_pxl/160x160_esp_data_block_white.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
 #include "media/320x170_pxl/320x170_esp_events_countdown.h"
+#include "media/320x170_pxl/320x170_esp_lotr_shire.h"
+#include "media/320x170_pxl/320x170_esp_sauron.h"
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
@@ -97,7 +99,7 @@ void setup() {
 
   button.setClickHandler([](Button2& btn) {
     currentScreen++;
-    if (currentScreen > 3) {
+    if (currentScreen > 4) {
       currentScreen = 1;
     }
     displayScreen(currentScreen);
@@ -166,6 +168,10 @@ void displayScreen(int screenNumber) {
 
     case 3:
       displayScreen3();
+      break;
+
+    case 4:
+      displayScreen4();
       break;
 
     default:
@@ -268,13 +274,13 @@ void displayScreen3() {
   tft.setTextSize(2);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
-  tft.print("03/01/2140");
+  tft.print("20/04/2024");
 
 
   tmElements_t targetDateTime;
-  targetDateTime.Year = 2140 - 1970;
-  targetDateTime.Month = 1;
-  targetDateTime.Day = 3;
+  targetDateTime.Year = 2024 - 1970;
+  targetDateTime.Month = 4;
+  targetDateTime.Day = 20;
   targetDateTime.Hour = 12;
   targetDateTime.Minute = 0;
   targetDateTime.Second = 0;
@@ -296,7 +302,36 @@ void displayScreen3() {
     tft.setCursor(252, 137);
     tft.printf("%02d", daysRemaining);
   } else {
-    tft.print("Le jour est arrivé !");
+    tft.print("It's the day");
+  }
+}
+
+void displayScreen4() {
+  getMempoolData();  
+
+  tft.fillScreen(TFT_WHITE); 
+
+  
+  if (feesMedium > 50) {
+    
+    tft.pushImage(0, 0, 320, 170, b320x170_esp_sauron);
+    tft.setTextColor(TFT_RED);
+    tft.setTextSize(2);
+    tft.setCursor(271, 20);
+    tft.print(feesMedium);
+    tft.setTextColor(TFT_WHITE);
+    tft.setCursor(246, 40);
+    tft.print("sat/vB");
+  } else {
+   
+    tft.pushImage(0, 0, 320, 170, b320x170_esp_lotr_shire);
+    tft.setTextColor(TFT_GREEN);
+    tft.setTextSize(2);
+    tft.setCursor(271, 20);
+    tft.print(feesMedium);
+    tft.setTextColor(TFT_BLACK);
+    tft.setCursor(246, 40);
+    tft.print("sat/vB");
   }
 }
 
