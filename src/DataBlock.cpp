@@ -307,7 +307,7 @@ void displayScreen3() {
 }
 
 void displayScreen4() {
-  getMempoolData();  
+  getMempoolDataFees();  
 
   tft.fillScreen(TFT_WHITE); 
 
