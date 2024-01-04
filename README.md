@@ -14,6 +14,8 @@ Configuration Wi-Fi
 
 Au démarrage, l'ESP32 tente de se connecter automatiquement au dernier réseau Wi-Fi enregistré. Si aucun réseau n'est trouvé, il crée un point d'accès Wi-Fi auquel vous pouvez vous connecter pour configurer les paramètres Wi-Fi depuis votre téléphone.
 
+![Data Block](src/media/exemples_displayScreens/320x170_esp_config_wifi.jpg)
+
 Utilisation
 
 Premier écran : Affichez les informations principales en cliquant sur le bouton inférieur. L'écran comprend des détails tels que la hauteur du bloc et les frais de transaction actuels, ainsi qu'une image/logo sur la partie droite.
