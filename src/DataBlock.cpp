@@ -268,13 +268,13 @@ void displayScreen3() {
   tft.setTextSize(2);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
-  tft.print("01/01/1970");
+  tft.print("03/01/2140");
 
 
   tmElements_t targetDateTime;
-  targetDateTime.Year = 1970 - 1970;
+  targetDateTime.Year = 2140 - 1970;
   targetDateTime.Month = 1;
-  targetDateTime.Day = 1;
+  targetDateTime.Day = 3;
   targetDateTime.Hour = 12;
   targetDateTime.Minute = 0;
   targetDateTime.Second = 0;
