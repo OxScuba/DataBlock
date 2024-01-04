@@ -15,7 +15,7 @@
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
 #include "media/160x160_pxl/160x160_esp_data_block_white.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
-#include "media/320x170_pxl/320x170_esp_BEF_Countdown.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown.h"
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
@@ -264,17 +264,17 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_BEF_Countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
   tft.setTextSize(2);
-  tft.setTextColor(TFT_WHITE);
+  tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
-  tft.print("18/05/2024");
+  tft.print("01/01/1970");
 
 
   tmElements_t targetDateTime;
-  targetDateTime.Year = 2024 - 1970;
-  targetDateTime.Month = 5;
-  targetDateTime.Day = 18;
+  targetDateTime.Year = 1970 - 1970;
+  targetDateTime.Month = 1;
+  targetDateTime.Day = 1;
   targetDateTime.Hour = 12;
   targetDateTime.Minute = 0;
   targetDateTime.Second = 0;
