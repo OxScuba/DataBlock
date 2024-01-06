@@ -20,7 +20,7 @@ Une fois dans le portail de configuration Wi-Fi :
 1) cliquez sur "Configure WiFi" puis vous serez sur une nouvelle page
 Dans cette nouvelle page,
 2) Ecrivez les informations concernant le Wi-Fi
-3) ainsi que la limite de Fees en sat/vB avant le Mordor
+3) Ainsi que la limite de Fees en sat/vB avant le Mordor
 4) Cliquez sur "Save" pour sauvegarder la configuration
 ![Data Block](src/media/Portail_wifi/Portail_wifi.png)
 
