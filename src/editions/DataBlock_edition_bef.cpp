@@ -1,4 +1,3 @@
-/*
 
 #include <Arduino.h>
 #include <WiFi.h>
@@ -11,20 +10,28 @@
 #include <TimeLib.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
+#include <Preferences.h>
 
+#include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/160x160_pxl/160x160_esp_bef.h"
 #include "media/160x160_pxl/160x160_esp_bef_black.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/320x170_pxl/320x170_esp_initialisation.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
 #include "media/320x170_pxl/320x170_esp_BEF_Countdown.h"
+#include "media/320x170_pxl/320x170_esp_lotr_shire.h"
+#include "media/320x170_pxl/320x170_esp_sauron.h"
+
+#define EEPROM_NAMESPACE "config"
+Preferences preferences;
+
+WiFiManager wifiManager;
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
 
-const String mempoolAPI = "https://mempool.space/api/v1/fees/recommended";
-const String mempoolAPIBlock = "https://mempool.space/api/blocks/tip/height";
-const char* mempoolAPIBlockM = "https://mempool.space/api/v1/blocks/";
+const String mempoolAPIFees = "https://mempool.space/api/v1/fees/recommended";
+const String mempoolAPIBlockHeight = "https://mempool.space/api/blocks/tip/height";
+const char* mempoolAPI3Blocks = "https://mempool.space/api/v1/blocks/";
 
 unsigned long lastDataRefresh = 0;
 const unsigned long dataRefreshInterval = 10000;
@@ -45,23 +52,35 @@ int dataSize;
 
 int currentScreen = 1;
 
+int feesLimitBeforeMordor = 50;
+
+WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
+
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 time_t currentSystemTime = 0;
 
+bool shouldSaveConfig = false;  
+
+void saveConfigToPreferences();
+void loadConfigFromPreferences();
+void saveConfigCallback();
+void setup();
+void loop();
+void displayImage(const char* filename, int displayTimeSeconds);
+void displayConfigScreen();
 void updateTime();
 void connectToWiFi();
-void displayConfigScreen();
 void displayScreen(int screenNumber);
 void displayScreen1();
 void displayScreen2();
 void displayScreen3();
 void displayScreen4();
-void getMempoolData();
-void getMempoolDataBlockM();
-void getMempoolDataBlock();
-void displayImage(const char* filename, int displayTimeSeconds);
+void getMempoolDataFees();
+void getMempoolData3Blocks();
+void getMempoolDataBlockHeight();
+
 
 void configModeCallback(WiFiManager* myWiFiManager) {
   Serial.println("Entered config mode");
@@ -69,11 +88,29 @@ void configModeCallback(WiFiManager* myWiFiManager) {
   Serial.println(myWiFiManager->getConfigPortalSSID());
 }
 
-void saveConfigCallback() {
-  Serial.println("Should save config");
+void saveConfigToPreferences() {
+  preferences.begin(EEPROM_NAMESPACE, false);
+  preferences.putUInt("fees_limit", feesLimitBeforeMordor);
+  preferences.end();
 }
 
-WiFiManager wifiManager;
+void loadConfigFromPreferences() {
+  preferences.begin(EEPROM_NAMESPACE, true);
+  feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
+  preferences.end();
+}
+
+void saveConfigCallback() {
+  Serial.println("Should save config");
+  shouldSaveConfig = true;
+
+  feesLimitBeforeMordor = atoi(fees_limit.getValue());
+
+  Serial.print("feesLimitBeforeMordor updated to: ");
+  Serial.println(feesLimitBeforeMordor);
+
+  saveConfigToPreferences();
+}
 
 void setup() {
   Serial.begin(115200);
@@ -81,6 +118,10 @@ void setup() {
   tft.setRotation(1);
   tft.fillScreen(TFT_WHITE);
   tft.setSwapBytes(true);
+
+  displayImage("b320x170_esp_data_block", 10);
+
+  WiFiManager wifiManager;
 
   displayConfigScreen();
 
@@ -123,14 +164,36 @@ void loop() {
     updateTime();
     lastTimeSync = millis();
   }
+
+  if (shouldSaveConfig) {
+    saveConfigCallback();
+    shouldSaveConfig = false;
+  }
 }
 
+void displayImage(const char* filename, int displayTimeSeconds) {
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_data_block);
+  delay(displayTimeSeconds * 1000);
+}
 
 void displayConfigScreen() {
   tft.fillScreen(TFT_WHITE);
   tft.pushImage(0, 0, 320, 170, b320x170_esp_config_wifi);
   String ssid = WiFi.SSID();
   String password = WiFi.psk();
+  
+  wifiManager.addParameter(&fees_limit);
+  
+  wifiManager.setClass("invert");
+
+  wifiManager.setAPCallback(configModeCallback);
+  wifiManager.setSaveConfigCallback(saveConfigCallback);
+
+  if (!wifiManager.autoConnect("Data Block", "TicTocNextBlock")) {
+    Serial.println("Failed to connect and hit timeout");
+    wifiManager.startConfigPortal();
+    displayConfigScreen();
+  }
 }
 
 void updateTime() {
@@ -174,42 +237,8 @@ void displayScreen(int screenNumber) {
 }
 
 void displayScreen1() {
-  getMempoolData();
-  getMempoolDataBlock();
-  tft.fillScreen(TFT_WHITE);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_bef);
-  tft.setTextSize(1);
-  tft.setTextColor(TFT_BLACK);
-  tft.setCursor(42, 40);
-  tft.print("Block Height");
-  tft.setCursor(60, 63);
-  tft.print(blockHeight);
-  tft.setTextSize(1);
-  tft.setCursor(68, 86);
-  tft.print("Fees");
-  tft.setCursor(119, 109);
-  tft.print("Low ");
-  tft.setCursor(119, 132);
-  tft.print(feesLow);
-  tft.setCursor(61, 109);
-  tft.print("Medium ");
-  tft.setCursor(70, 132);
-  tft.print(feesMedium);
-  tft.setCursor(19, 109);
-  tft.print("High ");
-  tft.setCursor(20, 132);
-  tft.print(feesHigh);
-  tft.setCursor(14, 146);
-  tft.print("sat/vB ");
-  tft.setCursor(64, 146);
-  tft.print("sat/vB ");
-  tft.setCursor(113, 146);
-  tft.print("sat/vB ");
-}
-
-void displayScreen2() {
-  getMempoolData();
-  getMempoolDataBlock();
+  getMempoolDataFees();
+  getMempoolDataBlockHeight();
   tft.fillScreen(TFT_BLACK);
   tft.pushImage(160, 5, 160, 160, b160x160_esp_bef_black);
   tft.setTextSize(1);
@@ -241,8 +270,8 @@ void displayScreen2() {
   tft.print("sat/vB ");
 }
 
-void displayScreen3() {
-  getMempoolDataBlockM();
+void displayScreen2() {
+  getMempoolData3Blocks();
   tft.fillScreen(TFT_WHITE);
   tft.pushImage(0, 0, 320, 170, b320x170_esp_mempool);
   for (int i = 0; i < 3; i++) {
@@ -293,7 +322,7 @@ void displayScreen3() {
   }
 }
 
-void displayScreen4() {
+void displayScreen3() {
 
   updateTime();
 
@@ -334,9 +363,35 @@ void displayScreen4() {
   }
 }
 
-void getMempoolData() {
+void displayScreen4() {
+  getMempoolDataFees();  
+
+  tft.fillScreen(TFT_WHITE); 
+
+  if (feesMedium > feesLimitBeforeMordor) {
+    tft.pushImage(0, 0, 320, 170, b320x170_esp_sauron);
+    tft.setTextColor(TFT_RED);
+    tft.setTextSize(2);
+    tft.setCursor(271, 20);
+    tft.print(feesMedium);
+    tft.setTextColor(TFT_WHITE);
+    tft.setCursor(246, 40);
+    tft.print("sat/vB");
+  } else {
+    tft.pushImage(0, 0, 320, 170, b320x170_esp_lotr_shire);
+    tft.setTextColor(TFT_GREEN);
+    tft.setTextSize(2);
+    tft.setCursor(271, 20);
+    tft.print(feesMedium);
+    tft.setTextColor(TFT_BLACK);
+    tft.setCursor(246, 40);
+    tft.print("sat/vB");
+  }
+}
+
+void getMempoolDataFees() {
   HTTPClient http;
-  http.begin(mempoolAPI);
+  http.begin(mempoolAPIFees);
   int httpCode = http.GET();
   if (httpCode > 0) {
     String payload = http.getString();
@@ -351,9 +406,9 @@ void getMempoolData() {
   http.end();
 }
 
-void getMempoolDataBlockM() {
+void getMempoolData3Blocks() {
   HTTPClient http;
-  http.begin(mempoolAPIBlockM);
+  http.begin(mempoolAPI3Blocks);
   int httpCode = http.GET();
   if (httpCode > 0) {
     String payload = http.getString();
@@ -374,9 +429,9 @@ void getMempoolDataBlockM() {
   http.end();
 }
 
-void getMempoolDataBlock() {
+void getMempoolDataBlockHeight() {
   HTTPClient http;
-  http.begin(mempoolAPIBlock);
+  http.begin(mempoolAPIBlockHeight);
   int httpCode = http.GET();
   if (httpCode > 0) {
     String payload = http.getString();
@@ -387,4 +442,3 @@ void getMempoolDataBlock() {
   }
   http.end();
 }
-*/
