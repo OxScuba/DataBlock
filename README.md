@@ -16,6 +16,11 @@ Au démarrage, l'ESP32 tente de se connecter automatiquement au dernier réseau 
 
 ![Data Block](src/media/exemples_displayScreens/1000x531_esp_config_wifi.png)
 
+Une fois dans le portail de configuration Wi-Fi, cliquez sur "Configure WiFi" puis vous serez sur une nouvelle page.
+![Data Block](src/media/Portail_Wifi/Portail_wifi_1.png)
+
+Dans cette nouvelle page, écrivez les informations concernant le Wi-Fi ainsi que la limite de Fees en sat/vB avant le Mordor.
+![Data Block](src/media/Portail_Wifi/Portail_wifi_2.png)
 
 Utilisation
 
