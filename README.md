@@ -1,54 +1,58 @@
+# Data Block
+
 ![Data Block](src/media/logo/DataBlock_logo.png)
 
-Data Block
+## Introduction
 
-Bienvenue dans le projet Data Block, une application conçue pour les microcontrôleurs ESP32, en particulier le modèle Lilygo T-Display S3. Ce projet offre une interface conviviale pour afficher des informations en temps réel sur la Timechain Bitcoin, telles que la hauteur du bloc, les frais de transaction et bien plus encore.
+Welcome to the Data Block project, an application designed for ESP32 microcontrollers, specifically the Lilygo T-Display S3 model. Explore the Bitcoin Timechain with a user-friendly interface displaying real-time information such as block height, transaction fees, and much more.
 
-Fonctionnalités
+## Features
 
-- Affichage des informations Bitcoin : Obtenez des données cruciales sur le réseau Bitcoin, notamment la hauteur du bloc et les frais de transaction actuels (faible, moyen, élevé).
-- Exploration des derniers blocs : Explorez les détails des trois derniers blocs avec une interface inspirée de mempool.space.
-- Compte à rebours personnalisable : Configurez des événements spéciaux avec un compte à rebours stylisé, comme illustré par l'exemple du BEF (18/05/2024).
-- "Limit Fees" qui affiche 2 écrans différents en fonction de la limite choisis des fees moyen.
+- **Bitcoin Information Display**: Get crucial data about the Bitcoin network, including current block height and transaction fees (low, medium, high).
+- **Explore Latest Blocks**: Dive into details of the three latest blocks with an interface inspired by mempool.space.
+- **Customizable Countdown**: Set up special events with a stylized countdown, as illustrated by the BEF example (18/05/2024).
+- **"Limit Fees"**: Displays 2 different screens based on the chosen limit for medium fees.
 
-Configuration Wi-Fi
+## Wi-Fi Configuration
 
-Au démarrage, l'ESP32 tente de se connecter automatiquement au dernier réseau Wi-Fi enregistré. Si aucun réseau n'est trouvé, il crée un point d'accès Wi-Fi auquel vous pouvez vous connecter pour configurer les paramètres Wi-Fi depuis votre téléphone.
+On startup, the ESP32 attempts to automatically connect to the last registered Wi-Fi network. If no network is found, it creates a Wi-Fi access point that you can connect to and configure Wi-Fi settings from your phone.
 
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_config_wifi.png)
+![Wi-Fi Configuration](src/media/Portail_wifi/Portail_wifi.png)
 
-Une fois dans le portail de configuration Wi-Fi :
-1) Cliquez sur "Configure WiFi" puis vous serez sur une nouvelle page
-2) Ecrivez les informations concernant le Wi-Fi
-3) Ainsi que la limite de Fees en sat/vB avant le Mordor
-4) Cliquez sur "Save" pour sauvegarder la configuration
-![Data Block](src/media/Portail_wifi/Portail_wifi.png)
+### Wi-Fi Configuration Steps:
 
-Utilisation
-Cliquez rapidement sur le bouton du bas afin d'affiché l'écran suivant. Une pression longue sur le bouton du bas vous ramènera au premier écran.
-- Premier écran : Affiche les informations principales. L'écran comprend des détails tels que la hauteur du bloc et les frais de transaction actuels, ainsi qu'une image/logo sur la partie droite.
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_displayScreen1_exemple.png)
+1. Click "Configure WiFi" to access a new page.
+2. Fill in the information regarding Wi-Fi.
+3. Set the limit for fees in sat/vB before Mordor.
+4. Click "Save" to save the configuration.
 
-- Exploration des blocs : Explorez plus en détails les trois derniers blocs dans une interface inspirée de mempool.space (https://mempool.space/fr/)
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_mempool_exemples.png)
+## Usage
 
-- Compte à rebours : Affiche un compte à rebours personnalisé pour des événements spéciaux.
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_events_countdown_exemple.png)
+Quickly click the bottom button to display the next screen. A long press on the bottom button will take you back to the first screen.
 
-- Limit Fees : En fonction de la configuration dans le portail Wi-Fi, arrivez sur cet écrant, la comté ou le mordor sera affiché avec les fees moyen.
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_lotr_shire_fees_limit.png)
-![Data Block](src/media/exemples_displayScreens/1000x531_esp_sauron_fees_limit.png)
+- **First Screen**: Displays main information such as block height and current transaction fees.
+  ![First Screen](src/media/exemples_displayScreens/1000x531_esp_displayScreen1_exemple.png)
 
+- **Explore Blocks**: Dive into the details of the three latest blocks in an interface inspired by mempool.space (https://mempool.space/en/).
+  ![Explore Blocks](src/media/exemples_displayScreens/1000x531_esp_mempool_exemples.png)
 
-Versions personnalisées
+- **Countdown**: Displays a customized countdown for special events.
+  ![Countdown](src/media/exemples_displayScreens/1000x531_esp_events_countdown_exemple.png)
 
-Le projet propose des versions personnalisées, telles que la version BEF et la version Seigneur des Anneaux (LOTR). Pour basculer entre ces versions, commentez le fichier "DataBlock.cpp" et décommentez la version de votre choix dans le dossier "src/editions".
+- **Limit Fees**: Depending on the configuration in the Wi-Fi portal, arrive at this screen where the Shire or Mordor will be displayed with medium fees.
+  ![Limit Fees Shire](src/media/exemples_displayScreens/1000x531_esp_lotr_shire_fees_limit.png)
+  ![Limit Fees Sauron](src/media/exemples_displayScreens/1000x531_esp_sauron_fees_limit.png)
 
+## Custom Versions
 
-Configuration
+The project offers custom versions such as the BEF version and the Lord of the Rings (LOTR) version. To switch between these versions, comment out the "DataBlock.cpp" file and uncomment the version of your choice in the "src/editions" folder.
 
-Pour démarrer, téléversez le firmware sur votre ESP32.
+## Configuration
 
-Note : Pour des versions plus personnalisées, consultez les fichiers correspondants dans le dossier "src/editions". 
+To start, upload the firmware to your ESP32.
 
-Profitez de l'exploration de la Timechain Bitcoin avec Data Block ! 🚀
+**Note**: For more customized versions, check the corresponding files in the "src/editions" folder.
+
+If you want to pay me a coffee : 0xscuba@getalby.com
+
+Enjoy exploring the Bitcoin Timechain with Data Block! 🚀
