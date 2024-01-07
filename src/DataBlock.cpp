@@ -53,7 +53,7 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
-WiFiManagerParameter day_param("day", "Day", "20", 2);
+WiFiManagerParameter day_param("day", "Day", "18", 2);
 WiFiManagerParameter month_param("month", "Month", "4", 2);
 WiFiManagerParameter year_param("year", "Year", "2024", 4);
 
@@ -104,7 +104,7 @@ void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
 
-  targetDateTime.Day = preferences.getUInt("day", 20);
+  targetDateTime.Day = preferences.getUInt("day", 18);
   targetDateTime.Month = preferences.getUInt("month", 4);
   targetDateTime.Year = preferences.getUInt("year", 2024) - 1970;
 
