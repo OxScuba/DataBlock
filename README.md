@@ -6,9 +6,10 @@ Bienvenue dans le projet Data Block, une application conçue pour les microcontr
 
 Fonctionnalités
 
-Affichage des informations Bitcoin : Obtenez des données cruciales sur le réseau Bitcoin, notamment la hauteur du bloc et les frais de transaction actuels (faible, moyen, élevé).
-Exploration des derniers blocs : Explorez les détails des trois derniers blocs avec une interface inspirée de mempool.space.
-Compte à rebours personnalisable : Configurez des événements spéciaux avec un compte à rebours stylisé, comme illustré par l'exemple du BEF (18/05/2024).
+- Affichage des informations Bitcoin : Obtenez des données cruciales sur le réseau Bitcoin, notamment la hauteur du bloc et les frais de transaction actuels (faible, moyen, élevé).
+- Exploration des derniers blocs : Explorez les détails des trois derniers blocs avec une interface inspirée de mempool.space.
+- Compte à rebours personnalisable : Configurez des événements spéciaux avec un compte à rebours stylisé, comme illustré par l'exemple du BEF (18/05/2024).
+- "Limit Fees" qui affiche 2 écrans différents en fonction de la limite choisis des fees moyen.
 
 Configuration Wi-Fi
 
@@ -17,8 +18,7 @@ Au démarrage, l'ESP32 tente de se connecter automatiquement au dernier réseau 
 ![Data Block](src/media/exemples_displayScreens/1000x531_esp_config_wifi.png)
 
 Une fois dans le portail de configuration Wi-Fi :
-1) cliquez sur "Configure WiFi" puis vous serez sur une nouvelle page
-Dans cette nouvelle page,
+1) Cliquez sur "Configure WiFi" puis vous serez sur une nouvelle page
 2) Ecrivez les informations concernant le Wi-Fi
 3) Ainsi que la limite de Fees en sat/vB avant le Mordor
 4) Cliquez sur "Save" pour sauvegarder la configuration
