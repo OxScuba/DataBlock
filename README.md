@@ -17,14 +17,17 @@ Welcome to the Data Block project, an application designed for ESP32 microcontro
 
 On startup, the ESP32 attempts to automatically connect to the last registered Wi-Fi network. If no network is found, it creates a Wi-Fi access point that you can connect to and configure Wi-Fi settings from your phone.
 
-![Wi-Fi Configuration](src/media/Portail_wifi/Portail_wifi.png)
+![Wi-Fi Configuration](src/media/exemples_displayScreens/1000x531_esp_config_wifi.png)
 
 ### Wi-Fi Configuration Steps:
+
+![Wi-Fi Configuration Steps](src/media/Portail_wifi/Portail_wifi.png)
 
 1. Click "Configure WiFi" to access a new page.
 2. Fill in the information regarding Wi-Fi.
 3. Set the limit for fees in sat/vB before Mordor.
-4. Click "Save" to save the configuration.
+4. Set the date for event display.
+5. Click "Save" to save the configuration.
 
 ## Usage
 
