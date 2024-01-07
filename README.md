@@ -25,15 +25,19 @@ Une fois dans le portail de configuration Wi-Fi :
 ![Data Block](src/media/Portail_wifi/Portail_wifi.png)
 
 Utilisation
-
-Premier écran : Affichez les informations principales en cliquant sur le bouton inférieur. L'écran comprend des détails tels que la hauteur du bloc et les frais de transaction actuels, ainsi qu'une image/logo sur la partie droite.
+Cliquez rapidement sur le bouton du bas afin d'affiché l'écran suivant. Une pression longue sur le bouton du bas vous ramènera au premier écran.
+- Premier écran : Affiche les informations principales. L'écran comprend des détails tels que la hauteur du bloc et les frais de transaction actuels, ainsi qu'une image/logo sur la partie droite.
 ![Data Block](src/media/exemples_displayScreens/1000x531_esp_displayScreen1_exemple.png)
 
-Exploration des blocs : En cliquant rapidement sur le bouton inférieur une seconde fois, explorez les détails des trois derniers blocs dans une interface inspirée de mempool.space.
+- Exploration des blocs : Explorez plus en détails les trois derniers blocs dans une interface inspirée de mempool.space (https://mempool.space/fr/)
 ![Data Block](src/media/exemples_displayScreens/1000x531_esp_mempool_exemples.png)
 
-Compte à rebours : Un clic long sur le bouton inférieur ramène à l'écran principal, tandis qu'un clic court permet de visualiser un compte à rebours personnalisé pour des événements spéciaux.
+- Compte à rebours : Affiche un compte à rebours personnalisé pour des événements spéciaux.
 ![Data Block](src/media/exemples_displayScreens/1000x531_esp_events_countdown_exemple.png)
+
+- Limit Fees : En fonction de la configuration dans le portail Wi-Fi, arrivez sur cet écrant, la comté ou le mordor sera affiché avec les fees moyen.
+![Data Block](src/media/exemples_displayScreens/1000x531_esp_lotr_shire_fees_limit.png)
+![Data Block](src/media/exemples_displayScreens/1000x531_esp_sauron_fees_limit.png)
 
 
 Versions personnalisées
