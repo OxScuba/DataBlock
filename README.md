@@ -48,7 +48,11 @@ Quickly click the bottom button to display the next screen. A long press on the 
 
 ## Custom Versions
 
-The project offers custom versions such as the BEF version and the Lord of the Rings (LOTR) version. To switch between these versions, comment out the "DataBlock.cpp" file and uncomment the version of your choice in the "src/editions" folder.
+The project offers custom versions such as the BEF version and the Lord of the Rings (LOTR) version. To switch between these versions :
+- comment out the "DataBlock.cpp" file
+  ![Comment Datablock](src/media/exemples_displayScreens/1000x531_esp_tuto_editions_comment_datablock.png)
+- uncomment the version of your choice in the "src/editions" folder.
+  ![Uncomment Wanted Version](src/media/exemples_displayScreens/1000x531_esp_tuto_editions_uncomment_edition_wanted.png)
 
 ## Configuration
 
@@ -56,7 +60,11 @@ To start, upload the firmware to your ESP32.
 
 **Note**: For more customized versions, check the corresponding files in the "src/editions" folder.
 
-If you've enjoyed the project and would like to show your appreciation, feel free to buy me a coffee ⚡ 0xscuba@getalby.com.
+## Tips
+
+If you've enjoyed the project and would like to show your appreciation, feel free to buy me a coffee :
+⚡ 0xscuba@getalby.com.
+
 Every sip supports the code! ☕️
 
 Enjoy exploring the Bitcoin Timechain with Data Block! 🚀
