@@ -285,7 +285,7 @@ void displayScreen2() {
 void displayScreen3() {
   getMempoolData3Blocks();
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_mordor_mempol);  // Modification ici
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_mordor_mempol);  
 
   for (int i = 0; i < 3; i++) {
     int xPosition = 143 + i * 56;
