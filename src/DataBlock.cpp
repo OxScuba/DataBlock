@@ -1,4 +1,4 @@
-
+/*
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -21,6 +21,7 @@
 #include "media/320x170_pxl/320x170_esp_sauron.h"
 
 #define EEPROM_NAMESPACE "config"
+
 Preferences preferences;
 
 WiFiManager wifiManager;
@@ -467,3 +468,4 @@ void getMempoolDataBlockHeight() {
   }
   http.end();
 }
+*/
