@@ -1,4 +1,4 @@
-/*
+
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -55,11 +55,15 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
+WiFiManagerParameter day_param("day", "Day", "18", 2);
+WiFiManagerParameter month_param("month", "Month", "4", 2);
+WiFiManagerParameter year_param("year", "Year", "2024", 4);
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 time_t currentSystemTime = 0;
+tmElements_t targetDateTime;
 
 bool shouldSaveConfig = false;  
 
@@ -91,12 +95,22 @@ void configModeCallback(WiFiManager* myWiFiManager) {
 void saveConfigToPreferences() {
   preferences.begin(EEPROM_NAMESPACE, false);
   preferences.putUInt("fees_limit", feesLimitBeforeMordor);
+
+  preferences.putUInt("day", targetDateTime.Day);
+  preferences.putUInt("month", targetDateTime.Month);
+  preferences.putUInt("year", targetDateTime.Year + 1970);
+
   preferences.end();
 }
 
 void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
+
+  targetDateTime.Day = preferences.getUInt("day", 18);
+  targetDateTime.Month = preferences.getUInt("month", 4);
+  targetDateTime.Year = preferences.getUInt("year", 2024) - 1970;
+
   preferences.end();
 }
 
@@ -106,8 +120,22 @@ void saveConfigCallback() {
 
   feesLimitBeforeMordor = atoi(fees_limit.getValue());
 
+  
+  targetDateTime.Day = atoi(day_param.getValue());
+  targetDateTime.Month = atoi(month_param.getValue());
+  targetDateTime.Year = atoi(year_param.getValue()) - 1970;
+
   Serial.print("feesLimitBeforeMordor updated to: ");
   Serial.println(feesLimitBeforeMordor);
+
+  Serial.print("Day updated to: ");
+  Serial.println(targetDateTime.Day);
+
+  Serial.print("Month updated to: ");
+  Serial.println(targetDateTime.Month);
+
+  Serial.print("Year updated to: ");
+  Serial.println(targetDateTime.Year);
 
   saveConfigToPreferences();
 }
@@ -183,6 +211,9 @@ void displayConfigScreen() {
   String password = WiFi.psk();
   
   wifiManager.addParameter(&fees_limit);
+  wifiManager.addParameter(&day_param);
+  wifiManager.addParameter(&month_param);
+  wifiManager.addParameter(&year_param);
   
   wifiManager.setClass("invert");
 
@@ -331,16 +362,12 @@ void displayScreen3() {
   tft.setTextSize(2);
   tft.setTextColor(TFT_WHITE);
   tft.setCursor(21, 137);
-  tft.print("18/05/2024");
+  tft.print(targetDateTime.Day);
+  tft.print("/");
+  tft.print(targetDateTime.Month);
+  tft.print("/");
+  tft.print(targetDateTime.Year + 1970);  
 
-
-  tmElements_t targetDateTime;
-  targetDateTime.Year = 2024 - 1970;
-  targetDateTime.Month = 5;
-  targetDateTime.Day = 18;
-  targetDateTime.Hour = 12;
-  targetDateTime.Minute = 0;
-  targetDateTime.Second = 0;
   time_t targetTime = makeTime(targetDateTime);
 
   Serial.println("Current time: " + String(ctime(&currentSystemTime)));
@@ -359,7 +386,7 @@ void displayScreen3() {
     tft.setCursor(252, 137);
     tft.printf("%02d", daysRemaining);
   } else {
-    tft.print("Le jour est arrivé !");
+    tft.print("It's the day");
   }
 }
 
@@ -442,4 +469,3 @@ void getMempoolDataBlockHeight() {
   }
   http.end();
 }
-*/
