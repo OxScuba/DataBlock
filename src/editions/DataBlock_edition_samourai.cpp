@@ -14,9 +14,9 @@
 
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/160x160_pxl/160x160_esp_silexperience.h"
+#include "media/320x170_pxl/320x170_esp_long_samourai.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
-#include "media/320x170_pxl/320x170_esp_BEF_Countdown.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
 #include "media/320x170_pxl/320x170_esp_sauron.h"
 
@@ -65,7 +65,7 @@ NTPClient timeClient(ntpUDP, "pool.ntp.org");
 time_t currentSystemTime = 0;
 tmElements_t targetDateTime;
 
-bool shouldSaveConfig = false; 
+bool shouldSaveConfig = false;  
 
 void saveConfigToPreferences();
 void loadConfigFromPreferences();
@@ -269,8 +269,8 @@ void displayScreen(int screenNumber) {
 void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
-  tft.fillScreen(TFT_BLACK);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_silexperience);
+  tft.fillScreen(TFT_WHITE);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_long_samourai);
   tft.setTextSize(1);
   tft.setTextColor(TFT_WHITE);
   tft.setCursor(42, 40);
@@ -357,9 +357,9 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_BEF_Countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
   tft.setTextSize(2);
-  tft.setTextColor(TFT_WHITE);
+  tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
   tft.print(targetDateTime.Day);
   tft.print("/");
