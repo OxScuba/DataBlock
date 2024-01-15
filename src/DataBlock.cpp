@@ -28,6 +28,7 @@ WiFiManager wifiManager;
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
+Button2 button2 = Button2(14); 
 
 const String mempoolAPIFees = "https://mempool.space/api/v1/fees/recommended";
 const String mempoolAPIBlockHeight = "https://mempool.space/api/blocks/tip/height";
@@ -55,9 +56,9 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
-WiFiManagerParameter day_param("day", "Day", "18", 2);
-WiFiManagerParameter month_param("month", "Month", "4", 2);
-WiFiManagerParameter year_param("year", "Year", "2024", 4);
+WiFiManagerParameter day_param("day", "Day", "3", 2);
+WiFiManagerParameter month_param("month", "Month", "1", 2);
+WiFiManagerParameter year_param("year", "Year", "2008", 4);
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
@@ -106,9 +107,9 @@ void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
 
-  targetDateTime.Day = preferences.getUInt("day", 18);
-  targetDateTime.Month = preferences.getUInt("month", 4);
-  targetDateTime.Year = preferences.getUInt("year", 2024) - 1970;
+  targetDateTime.Day = preferences.getUInt("day", 3);
+  targetDateTime.Month = preferences.getUInt("month", 1);
+  targetDateTime.Year = preferences.getUInt("year", 2008) - 1970;
 
   preferences.end();
 }
@@ -148,7 +149,7 @@ void setup() {
 
   displayImage("b320x170_esp_data_block", 10);
 
-  WiFiManager wifiManager;
+ 
 
   displayConfigScreen();
 
@@ -177,10 +178,23 @@ void setup() {
     displayScreen(currentScreen);
     lastDataRefresh = 0;
   });
+
+  button2.setClickHandler([](Button2& btn) {
+    Serial.println("Second button long clicked!");
+    Serial.print("Free Heap before reset: ");
+    Serial.println(ESP.getFreeHeap());
+    
+    wifiManager.resetSettings();
+    ESP.restart();
+    
+    Serial.print("Free Heap after reset: ");
+    Serial.println(ESP.getFreeHeap());
+  });
 }
 
 void loop() {
   button.loop();
+  button2.loop();
 
   if (millis() - lastDataRefresh >= dataRefreshInterval) {
     displayScreen(currentScreen);
