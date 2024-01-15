@@ -11,6 +11,7 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 #include <Preferences.h>
+
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
 #include "media/320x170_pxl/320x170_esp_long_samourai.h"
@@ -18,38 +19,53 @@
 #include "media/320x170_pxl/320x170_esp_events_countdown.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
 #include "media/320x170_pxl/320x170_esp_sauron.h"
+
 #define EEPROM_NAMESPACE "config"
+
 Preferences preferences;
 WiFiManager wifiManager;
+
 TFT_eSPI tft;
 Button2 button = Button2(0);
+Button2 button2 = Button2(14); 
+
 const String mempoolAPIFees = "https://mempool.space/api/v1/fees/recommended";
 const String mempoolAPIBlockHeight = "https://mempool.space/api/blocks/tip/height";
 const char* mempoolAPI3Blocks = "https://mempool.space/api/v1/blocks/";
+
 unsigned long lastDataRefresh = 0;
 const unsigned long dataRefreshInterval = 10000;
+
 unsigned long lastTimeSync = 0;
 const unsigned long timeSyncInterval = 10000; 
+
 unsigned long blockHeight;
 int feesLow;
 int feesMedium;
 int feesHigh;
+
 unsigned long blockHeightm[3];
 float size[3];
 int avgFeeRate[3];
 int txCount[3];
 int dataSize;
+
 int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
+
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
 WiFiManagerParameter day_param("day", "Day", "18", 2);
 WiFiManagerParameter month_param("month", "Month", "4", 2);
 WiFiManagerParameter year_param("year", "Year", "2024", 4);
+
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
+
 time_t currentSystemTime = 0;
 tmElements_t targetDateTime;
+
 bool shouldSaveConfig = false;  
+
 void saveConfigToPreferences();
 void loadConfigFromPreferences();
 void saveConfigCallback();
@@ -67,6 +83,7 @@ void displayScreen4();
 void getMempoolDataFees();
 void getMempoolData3Blocks();
 void getMempoolDataBlockHeight();
+
 void configModeCallback(WiFiManager* myWiFiManager) {
   Serial.println("Entered config mode");
   Serial.println(WiFi.softAPIP());
@@ -113,7 +130,7 @@ void setup() {
   tft.fillScreen(TFT_WHITE);
   tft.setSwapBytes(true);
   displayImage("b320x170_esp_data_block", 10);
-  WiFiManager wifiManager;
+
   displayConfigScreen();
   wifiManager.setAPCallback(configModeCallback);
   wifiManager.setSaveConfigCallback(saveConfigCallback);
@@ -136,9 +153,16 @@ void setup() {
     displayScreen(currentScreen);
     lastDataRefresh = 0;
   });
+
+  button2.setClickHandler([](Button2& btn) {
+    wifiManager.resetSettings();
+    ESP.restart();
+    
+  });
 }
 void loop() {
   button.loop();
+  button2.loop();
   if (millis() - lastDataRefresh >= dataRefreshInterval) {
     displayScreen(currentScreen);
     lastDataRefresh = millis();

@@ -27,6 +27,7 @@ WiFiManager wifiManager;
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
+Button2 button2 = Button2(14); 
 
 const String mempoolAPIFees = "https://mempool.space/api/v1/fees/recommended";
 const String mempoolAPIBlockHeight = "https://mempool.space/api/blocks/tip/height";
@@ -120,8 +121,6 @@ void setup() {
 
   displayImage("b320x170_esp_data_block", 10);
 
-  WiFiManager wifiManager;
-
   displayConfigScreen();
 
   wifiManager.setAPCallback(configModeCallback);
@@ -149,10 +148,17 @@ void setup() {
     displayScreen(currentScreen);
     lastDataRefresh = 0;
   });
+
+  button2.setClickHandler([](Button2& btn) {
+    wifiManager.resetSettings();
+    ESP.restart();
+    
+  });
 }
 
 void loop() {
   button.loop();
+  button2.loop();
 
   if (millis() - lastDataRefresh >= dataRefreshInterval) {
     displayScreen(currentScreen);

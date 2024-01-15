@@ -180,15 +180,9 @@ void setup() {
   });
 
   button2.setClickHandler([](Button2& btn) {
-    Serial.println("Second button long clicked!");
-    Serial.print("Free Heap before reset: ");
-    Serial.println(ESP.getFreeHeap());
-    
     wifiManager.resetSettings();
     ESP.restart();
     
-    Serial.print("Free Heap after reset: ");
-    Serial.println(ESP.getFreeHeap());
   });
 }
 
