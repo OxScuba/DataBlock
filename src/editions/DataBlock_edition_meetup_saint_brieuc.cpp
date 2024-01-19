@@ -58,9 +58,9 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
-WiFiManagerParameter day_param("day", "Day", "18", 2);
-WiFiManagerParameter month_param("month", "Month", "4", 2);
-WiFiManagerParameter year_param("year", "Year", "2024", 4);
+WiFiManagerParameter day_param("day", "Day", "3", 2);
+WiFiManagerParameter month_param("month", "Month", "1", 2);
+WiFiManagerParameter year_param("year", "Year", "2008", 4);
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
@@ -111,9 +111,9 @@ void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
 
-  targetDateTime.Day = preferences.getUInt("day", 18);
-  targetDateTime.Month = preferences.getUInt("month", 4);
-  targetDateTime.Year = preferences.getUInt("year", 2024) - 1970;
+  targetDateTime.Day = preferences.getUInt("day", 3);
+  targetDateTime.Month = preferences.getUInt("month", 1);
+  targetDateTime.Year = preferences.getUInt("year", 2008) - 1970;
 
   preferences.end();
 }

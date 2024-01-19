@@ -21,6 +21,7 @@
 #include "media/320x170_pxl/320x170_esp_lotr.h"
 
 #define EEPROM_NAMESPACE "config"
+
 Preferences preferences;
 
 WiFiManager wifiManager;
@@ -55,11 +56,15 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
+WiFiManagerParameter day_param("day", "Day", "3", 2);
+WiFiManagerParameter month_param("month", "Month", "1", 2);
+WiFiManagerParameter year_param("year", "Year", "2008", 4);
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
 
 time_t currentSystemTime = 0;
+tmElements_t targetDateTime;
 
 bool shouldSaveConfig = false;  
 
@@ -91,12 +96,22 @@ void configModeCallback(WiFiManager* myWiFiManager) {
 void saveConfigToPreferences() {
   preferences.begin(EEPROM_NAMESPACE, false);
   preferences.putUInt("fees_limit", feesLimitBeforeMordor);
+
+  preferences.putUInt("day", targetDateTime.Day);
+  preferences.putUInt("month", targetDateTime.Month);
+  preferences.putUInt("year", targetDateTime.Year + 1970);
+
   preferences.end();
 }
 
 void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
+
+  targetDateTime.Day = preferences.getUInt("day", 3);
+  targetDateTime.Month = preferences.getUInt("month", 1);
+  targetDateTime.Year = preferences.getUInt("year", 2008) - 1970;
+
   preferences.end();
 }
 
@@ -106,8 +121,22 @@ void saveConfigCallback() {
 
   feesLimitBeforeMordor = atoi(fees_limit.getValue());
 
+  
+  targetDateTime.Day = atoi(day_param.getValue());
+  targetDateTime.Month = atoi(month_param.getValue());
+  targetDateTime.Year = atoi(year_param.getValue()) - 1970;
+
   Serial.print("feesLimitBeforeMordor updated to: ");
   Serial.println(feesLimitBeforeMordor);
+
+  Serial.print("Day updated to: ");
+  Serial.println(targetDateTime.Day);
+
+  Serial.print("Month updated to: ");
+  Serial.println(targetDateTime.Month);
+
+  Serial.print("Year updated to: ");
+  Serial.println(targetDateTime.Year);
 
   saveConfigToPreferences();
 }

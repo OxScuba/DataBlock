@@ -54,9 +54,9 @@ int currentScreen = 1;
 int feesLimitBeforeMordor = 50;
 
 WiFiManagerParameter fees_limit("feesLimit", "Fees Limit Before Mordor", String(feesLimitBeforeMordor).c_str(), 4);
-WiFiManagerParameter day_param("day", "Day", "18", 2);
-WiFiManagerParameter month_param("month", "Month", "4", 2);
-WiFiManagerParameter year_param("year", "Year", "2024", 4);
+WiFiManagerParameter day_param("day", "Day", "3", 2);
+WiFiManagerParameter month_param("month", "Month", "1", 2);
+WiFiManagerParameter year_param("year", "Year", "2008", 4);
 
 WiFiUDP ntpUDP;
 NTPClient timeClient(ntpUDP, "pool.ntp.org");
@@ -89,40 +89,54 @@ void configModeCallback(WiFiManager* myWiFiManager) {
   Serial.println(WiFi.softAPIP());
   Serial.println(myWiFiManager->getConfigPortalSSID());
 }
+
 void saveConfigToPreferences() {
   preferences.begin(EEPROM_NAMESPACE, false);
   preferences.putUInt("fees_limit", feesLimitBeforeMordor);
+ 
   preferences.putUInt("day", targetDateTime.Day);
   preferences.putUInt("month", targetDateTime.Month);
   preferences.putUInt("year", targetDateTime.Year + 1970);
+ 
   preferences.end();
 }
+
 void loadConfigFromPreferences() {
   preferences.begin(EEPROM_NAMESPACE, true);
   feesLimitBeforeMordor = preferences.getUInt("fees_limit", feesLimitBeforeMordor);
-  targetDateTime.Day = preferences.getUInt("day", 18);
-  targetDateTime.Month = preferences.getUInt("month", 4);
-  targetDateTime.Year = preferences.getUInt("year", 2024) - 1970;
+ 
+  targetDateTime.Day = preferences.getUInt("day", 3);
+  targetDateTime.Month = preferences.getUInt("month", 1);
+  targetDateTime.Year = preferences.getUInt("year", 2008) - 1970;
+ 
   preferences.end();
 }
+
 void saveConfigCallback() {
   Serial.println("Should save config");
   shouldSaveConfig = true;
+
   feesLimitBeforeMordor = atoi(fees_limit.getValue());
   
   targetDateTime.Day = atoi(day_param.getValue());
   targetDateTime.Month = atoi(month_param.getValue());
   targetDateTime.Year = atoi(year_param.getValue()) - 1970;
+ 
   Serial.print("feesLimitBeforeMordor updated to: ");
   Serial.println(feesLimitBeforeMordor);
+ 
   Serial.print("Day updated to: ");
   Serial.println(targetDateTime.Day);
+ 
   Serial.print("Month updated to: ");
   Serial.println(targetDateTime.Month);
+ 
   Serial.print("Year updated to: ");
   Serial.println(targetDateTime.Year);
+ 
   saveConfigToPreferences();
 }
+
 void setup() {
   Serial.begin(115200);
   tft.init();
@@ -132,14 +146,18 @@ void setup() {
   displayImage("b320x170_esp_data_block", 10);
 
   displayConfigScreen();
+
   wifiManager.setAPCallback(configModeCallback);
   wifiManager.setSaveConfigCallback(saveConfigCallback);
+
   if (!wifiManager.autoConnect("Data Block", "TicTocNextBlock")) {
     Serial.println("Failed to connect and hit timeout");
     wifiManager.startConfigPortal();
     displayConfigScreen();
   }
+
   connectToWiFi();
+
   button.setClickHandler([](Button2& btn) {
     currentScreen++;
     if (currentScreen > 4) {
@@ -148,6 +166,7 @@ void setup() {
     displayScreen(currentScreen);
     lastDataRefresh = 0;
   });
+
   button.setLongClickHandler([](Button2& btn) {
     currentScreen = 1;
     displayScreen(currentScreen);
@@ -160,9 +179,11 @@ void setup() {
     
   });
 }
+
 void loop() {
   button.loop();
   button2.loop();
+
   if (millis() - lastDataRefresh >= dataRefreshInterval) {
     displayScreen(currentScreen);
     lastDataRefresh = millis();
@@ -176,10 +197,12 @@ void loop() {
     shouldSaveConfig = false;
   }
 }
+
 void displayImage(const char* filename, int displayTimeSeconds) {
   tft.pushImage(0, 0, 320, 170, b320x170_esp_data_block);
   delay(displayTimeSeconds * 1000);
 }
+
 void displayConfigScreen() {
   tft.fillScreen(TFT_WHITE);
   tft.pushImage(0, 0, 320, 170, b320x170_esp_config_wifi);
@@ -200,10 +223,12 @@ void displayConfigScreen() {
     displayConfigScreen();
   }
 }
+
 void updateTime() {
   timeClient.update();
   currentSystemTime = timeClient.getEpochTime();
 }
+
 void connectToWiFi() {
   Serial.println("Connecting to WiFi...");
   if (WiFi.status() != WL_CONNECTED) {
@@ -215,6 +240,7 @@ void connectToWiFi() {
     Serial.println("Connected to WiFi");
   }
 }
+
 void displayScreen(int screenNumber) {
   switch (screenNumber) {
     case 1:
@@ -233,6 +259,7 @@ void displayScreen(int screenNumber) {
       break;
   }
 }
+
 void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
@@ -266,6 +293,7 @@ void displayScreen1() {
   tft.setCursor(113, 146);
   tft.print("sat/vB ");
 }
+
 void displayScreen2() {
   getMempoolData3Blocks();
   tft.fillScreen(TFT_WHITE);
@@ -317,6 +345,7 @@ void displayScreen2() {
     }
   }
 }
+
 void displayScreen3() {
   updateTime();
   tft.fillScreen(TFT_WHITE);
@@ -346,6 +375,7 @@ void displayScreen3() {
     tft.print("It's the day");
   }
 }
+
 void displayScreen4() {
   getMempoolDataFees();  
   tft.fillScreen(TFT_WHITE); 
@@ -369,6 +399,7 @@ void displayScreen4() {
     tft.print("sat/vB");
   }
 }
+
 void getMempoolDataFees() {
   HTTPClient http;
   http.begin(mempoolAPIFees);
@@ -385,6 +416,7 @@ void getMempoolDataFees() {
   }
   http.end();
 }
+
 void getMempoolData3Blocks() {
   HTTPClient http;
   http.begin(mempoolAPI3Blocks);
@@ -407,6 +439,7 @@ void getMempoolData3Blocks() {
   }
   http.end();
 }
+
 void getMempoolDataBlockHeight() {
   HTTPClient http;
   http.begin(mempoolAPIBlockHeight);
