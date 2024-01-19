@@ -13,6 +13,17 @@ Welcome to the Data Block project, an application designed for ESP32 microcontro
 - **Customizable Countdown**: Set up special events with a stylized countdown, as illustrated by the BEF example (18/05/2024).
 - **"Limit Fees"**: Displays 2 different screens based on the chosen limit for medium fees.
 
+## Flash firmware
+
+Create your own DataBlock using the online firwmare flash tool ESPtool and one of the binary files that you will find in the `bin folder. If you want you can compile the entire project using Arduino, PlatformIO or Expressif IDF.
+
+   1. Get a TTGO T-display S3 
+   2. Download this repository
+   3. Go to ESPtool online: https://espressif.github.io/esptool-js/
+   4. Load the firmware with the binary from one of the sub-folders of bin corresponding to your board.
+   5. Plug your board and select each file from the sub-folder (.bin files).
+
+
 ## Wi-Fi Configuration
 
 On startup, the ESP32 attempts to automatically connect to the last registered Wi-Fi network. If no network is found, it creates a Wi-Fi access point that you can connect to and configure Wi-Fi settings from your phone.
