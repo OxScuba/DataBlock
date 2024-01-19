@@ -1,4 +1,4 @@
-
+/*
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -14,7 +14,7 @@
 
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/160x160_pxl/160x160_esp_data_block_white.h"
+#include "media/160x160_pxl/160x160_esp_bitcoinpointfr.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
 #include "media/320x170_pxl/320x170_esp_events_countdown.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
@@ -278,7 +278,7 @@ void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_data_block_white);
+  tft.pushImage(160, 5, 160, 160, b160x160_esp_bitcoinpointfr);
   tft.setTextSize(1);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(42, 40);
@@ -476,3 +476,4 @@ void getMempoolDataBlockHeight() {
   }
   http.end();
 }
+*/
