@@ -1,4 +1,4 @@
-
+/*
 #include <Arduino.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
@@ -14,7 +14,8 @@
 
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/160x160_pxl/160x160_esp_data_block_white.h"
+#include "media/160x160_pxl/160x160_esp_bitcoinlyon.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown_meetup_lyon.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
 #include "media/320x170_pxl/320x170_esp_events_countdown.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
@@ -25,6 +26,7 @@
 Preferences preferences;
 
 WiFiManager wifiManager;
+
 
 TFT_eSPI tft;
 Button2 button = Button2(0);
@@ -86,6 +88,8 @@ void getMempoolDataFees();
 void getMempoolData3Blocks();
 void getMempoolDataBlockHeight();
 
+
+
 void configModeCallback(WiFiManager* myWiFiManager) {
   Serial.println("Entered config mode");
   Serial.println(WiFi.softAPIP());
@@ -140,6 +144,7 @@ void saveConfigCallback() {
   saveConfigToPreferences();
 }
 
+
 void setup() {
   Serial.begin(115200);
   tft.init();
@@ -148,8 +153,6 @@ void setup() {
   tft.setSwapBytes(true);
 
   displayImage("b320x170_esp_data_block", 10);
-
- 
 
   displayConfigScreen();
 
@@ -278,7 +281,7 @@ void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_data_block_white);
+  tft.pushImage(160, 5, 160, 160, b160x160_esp_bitcoinlyon);
   tft.setTextSize(1);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(42, 40);
@@ -365,7 +368,7 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown_meetup_lyon);
   tft.setTextSize(2);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
@@ -476,3 +479,4 @@ void getMempoolDataBlockHeight() {
   }
   http.end();
 }
+*/
