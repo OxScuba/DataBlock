@@ -14,9 +14,9 @@
 
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/160x160_pxl/160x160_esp_data_block_white.h"
+#include "media/160x160_pxl/160x160_esp_btclorient.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
-#include "media/320x170_pxl/320x170_esp_events_countdown.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown_meetup_lorient.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
 #include "media/320x170_pxl/320x170_esp_sauron.h"
 
@@ -277,10 +277,10 @@ void displayScreen(int screenNumber) {
 void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
-  tft.fillScreen(TFT_WHITE);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_data_block_white);
+  tft.fillScreen(TFT_BLACK);
+  tft.pushImage(160, 5, 160, 160, b160x160_esp_btclorient);
   tft.setTextSize(1);
-  tft.setTextColor(TFT_BLACK);
+  tft.setTextColor(TFT_WHITE);
   tft.setCursor(42, 40);
   tft.print("Block Height");
   tft.setCursor(60, 63);
@@ -365,9 +365,9 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown_meetup_lorient);
   tft.setTextSize(2);
-  tft.setTextColor(TFT_BLACK);
+  tft.setTextColor(TFT_WHITE);
   tft.setCursor(21, 137);
   tft.print(targetDateTime.Day);
   tft.print("/");

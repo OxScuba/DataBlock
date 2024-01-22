@@ -14,9 +14,9 @@
 
 #include "media/320x170_pxl/320x170_esp_data_block.h"
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
-#include "media/160x160_pxl/160x160_esp_data_block_white.h"
+#include "media/160x160_pxl/160x160_esp_meetup_breizh_bitcoin_2.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
-#include "media/320x170_pxl/320x170_esp_events_countdown.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown_meetup_breizh_bitcoin_2.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
 #include "media/320x170_pxl/320x170_esp_sauron.h"
 
@@ -278,7 +278,7 @@ void displayScreen1() {
   getMempoolDataFees();
   getMempoolDataBlockHeight();
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(160, 5, 160, 160, b160x160_esp_data_block_white);
+  tft.pushImage(160, 5, 160, 160, b160x160_esp_meetup_breizh_bitcoin_2);
   tft.setTextSize(1);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(42, 40);
@@ -365,7 +365,7 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown_meetup_breizh_bitcoin_2);
   tft.setTextSize(2);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
