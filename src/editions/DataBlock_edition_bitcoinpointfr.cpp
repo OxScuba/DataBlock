@@ -16,7 +16,7 @@
 #include "media/320x170_pxl/320x170_esp_config_wifi.h"
 #include "media/160x160_pxl/160x160_esp_bitcoinpointfr.h"
 #include "media/320x170_pxl/320x170_esp_mempool.h"
-#include "media/320x170_pxl/320x170_esp_events_countdown.h"
+#include "media/320x170_pxl/320x170_esp_events_countdown_bitcoinpointfr.h"
 #include "media/320x170_pxl/320x170_esp_lotr_shire.h"
 #include "media/320x170_pxl/320x170_esp_sauron.h"
 
@@ -365,7 +365,7 @@ void displayScreen3() {
   updateTime();
 
   tft.fillScreen(TFT_WHITE);
-  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown);
+  tft.pushImage(0, 0, 320, 170, b320x170_esp_events_countdown_bitcoinpointfr);
   tft.setTextSize(2);
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(21, 137);
@@ -393,6 +393,7 @@ void displayScreen3() {
     tft.setCursor(252, 137);
     tft.printf("%02d", daysRemaining);
   } else {
+    tft.setCursor(140, 137);
     tft.print("It's the day");
   }
 }
