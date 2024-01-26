@@ -279,32 +279,47 @@ void displayScreen1() {
   getMempoolDataBlockHeight();
   tft.fillScreen(TFT_BLACK);
   tft.pushImage(160, 5, 160, 160, b160x160_esp_breizh_bitcoin);
+  tft.setTextSize(2);
+  tft.setTextColor(TFT_WHITE);
+  tft.setCursor(10, 25);
+  tft.print("Block Height");
+  tft.setTextColor(TFT_ORANGE);
+  tft.setCursor(40, 55);
+  tft.print(blockHeight);
+  tft.setTextColor(TFT_WHITE);
+  tft.setTextSize(2);
+  tft.setCursor(58, 85);
+  tft.print("Fees");
+  tft.setTextSize(1);
+  tft.setCursor(119, 110);
+  tft.print("Low");
+  tft.setTextSize(2);
+  tft.setTextColor(TFT_ORANGE);
+  tft.setCursor(115, 125);
+  tft.print(feesLow);
   tft.setTextSize(1);
   tft.setTextColor(TFT_WHITE);
-  tft.setCursor(42, 40);
-  tft.print("Block Height");
-  tft.setCursor(60, 63);
-  tft.print(blockHeight);
-  tft.setTextSize(1);
-  tft.setCursor(68, 86);
-  tft.print("Fees");
-  tft.setCursor(119, 109);
-  tft.print("Low ");
-  tft.setCursor(119, 132);
-  tft.print(feesLow);
-  tft.setCursor(61, 109);
-  tft.print("Medium ");
-  tft.setCursor(70, 132);
+  tft.setCursor(61, 110);
+  tft.print("Medium");
+  tft.setTextSize(2);
+  tft.setTextColor(TFT_ORANGE);
+  tft.setCursor(70, 125);
   tft.print(feesMedium);
-  tft.setCursor(19, 109);
-  tft.print("High ");
-  tft.setCursor(20, 132);
+  tft.setTextSize(1);
+  tft.setTextColor(TFT_WHITE);
+  tft.setCursor(15, 110);
+  tft.print("High");
+  tft.setTextSize(2);
+  tft.setTextColor(TFT_ORANGE);
+  tft.setCursor(15, 125);
   tft.print(feesHigh);
-  tft.setCursor(14, 146);
+  tft.setTextSize(1);
+  tft.setTextColor(TFT_WHITE);
+  tft.setCursor(10, 145);
   tft.print("sat/vB ");
-  tft.setCursor(64, 146);
+  tft.setCursor(64, 145);
   tft.print("sat/vB ");
-  tft.setCursor(113, 146);
+  tft.setCursor(113, 145);
   tft.print("sat/vB ");
 }
 
@@ -393,6 +408,7 @@ void displayScreen3() {
     tft.setCursor(252, 137);
     tft.printf("%02d", daysRemaining);
   } else {
+    tft.setCursor(140, 137);
     tft.print("It's the day");
   }
 }
