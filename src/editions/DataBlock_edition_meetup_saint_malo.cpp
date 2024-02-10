@@ -286,7 +286,7 @@ void displayScreen1() {
   tft.setTextColor(TFT_BLACK);
   tft.setCursor(10, 25);
   tft.print("Block Height");
-  tft.setTextColor(TFT_ORANGE);
+  tft.setTextColor(TFT_RED);
   tft.setCursor(40, 55);
   tft.print(blockHeight);
   tft.setTextColor(TFT_BLACK);
@@ -297,7 +297,7 @@ void displayScreen1() {
   tft.setCursor(119, 110);
   tft.print("Low");
   tft.setTextSize(2);
-  tft.setTextColor(TFT_ORANGE);
+  tft.setTextColor(TFT_RED);
   tft.setCursor(115, 125);
   tft.print(feesLow);
   tft.setTextSize(1);
@@ -305,7 +305,7 @@ void displayScreen1() {
   tft.setCursor(61, 110);
   tft.print("Medium");
   tft.setTextSize(2);
-  tft.setTextColor(TFT_ORANGE);
+  tft.setTextColor(TFT_RED);
   tft.setCursor(70, 125);
   tft.print(feesMedium);
   tft.setTextSize(1);
@@ -313,7 +313,7 @@ void displayScreen1() {
   tft.setCursor(15, 110);
   tft.print("High");
   tft.setTextSize(2);
-  tft.setTextColor(TFT_ORANGE);
+  tft.setTextColor(TFT_RED);
   tft.setCursor(15, 125);
   tft.print(feesHigh);
   tft.setTextSize(1);
