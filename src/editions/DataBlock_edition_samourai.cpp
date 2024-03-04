@@ -378,7 +378,7 @@ void displayScreen3() {
   Serial.println("Target time: " + String(ctime(&targetTime)));
   if (currentSystemTime < targetTime) {
     time_t timeDiff = targetTime - currentSystemTime;
-    int daysRemaining = timeDiff / SECS_PER_DAY;
+    int daysRemaining = (timeDiff + SECS_PER_DAY - 1) / SECS_PER_DAY;
     int hoursRemaining = (timeDiff % SECS_PER_DAY) / SECS_PER_HOUR;
     int minutesRemaining = ((timeDiff % SECS_PER_DAY) % SECS_PER_HOUR) / SECS_PER_MIN;
     Serial.printf("Time remaining: %02d days, %02d hours, %02d minutes\n", daysRemaining, hoursRemaining, minutesRemaining);

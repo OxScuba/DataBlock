@@ -398,7 +398,7 @@ void displayScreen3() {
   if (currentSystemTime < targetTime) {
     time_t timeDiff = targetTime - currentSystemTime;
 
-    int daysRemaining = timeDiff / SECS_PER_DAY;
+    int daysRemaining = (timeDiff + SECS_PER_DAY - 1) / SECS_PER_DAY;
     int hoursRemaining = (timeDiff % SECS_PER_DAY) / SECS_PER_HOUR;
     int minutesRemaining = ((timeDiff % SECS_PER_DAY) % SECS_PER_HOUR) / SECS_PER_MIN;
 
