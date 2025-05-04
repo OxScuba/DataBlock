@@ -75,7 +75,7 @@ To start, upload the firmware to your ESP32.
 
 If you've enjoyed the project and would like to show your appreciation, feel free to buy me a coffee :
 
-⚡ 0xscuba@getalby.com.
+⚡ Scuba_Wizard@getalby.com.
 
 Every sip supports the code! ☕️
 
